@@ -52,6 +52,63 @@
     .nav{display:none;}
     .slide{position:relative;display:flex !important;page-break-after:always;height:100vh;}
   }
+  .slide.demo{justify-content:flex-start;padding-top:5vh;}
+  .demo-note{font-size:.85rem;color:var(--muted);margin:-0.4em 0 1em 0;font-style:italic;}
+  .demo-wrap{display:flex;gap:1.8rem;align-items:flex-start;}
+  .demo-form{flex:1.1;background:var(--card);border-radius:12px;padding:1.1rem 1.3rem;display:flex;flex-direction:column;gap:.55rem;max-width:520px;}
+  .demo-field{display:flex;flex-direction:column;gap:.2rem;position:relative;}
+  .demo-field label{font-size:.72rem;font-weight:700;color:var(--navy);}
+  .demo-field input, .demo-field select{padding:.42rem .55rem;border:2px solid #e0e0e0;border-radius:6px;
+    font-size:.82rem;font-family:Calibri,Arial,sans-serif;background:#fff;color:#333;
+    transition:box-shadow .2s, border-color .2s;}
+  .demo-field.active input, .demo-field.active select{border-color:var(--yellow);box-shadow:0 0 0 3px rgba(255,230,0,.4);}
+  .demo-suggest{position:absolute;top:100%;left:0;right:0;background:#fff;border:2px solid var(--yellow);
+    border-top:none;border-radius:0 0 6px 6px;font-size:.78rem;padding:.4rem .55rem;color:#333;
+    box-shadow:0 6px 14px rgba(0,0,0,.12);display:none;z-index:5;}
+  .demo-suggest.show{display:block;}
+  .demo-row2{display:flex;gap:.55rem;}
+  .demo-row2 .demo-field{flex:1;}
+  .demo-cards{display:flex;gap:.45rem;}
+  .demo-card{flex:1;border:2px solid #e0e0e0;border-radius:8px;padding:.4rem .3rem;text-align:center;
+    font-size:.74rem;font-weight:600;color:#333;background:#fff;transition:all .2s;}
+  .demo-card.chosen{background:var(--navy);border-color:var(--navy);color:var(--yellow);}
+  .demo-field.hidden{display:none;}
+  .demo-btn{margin-top:.2rem;padding:.55rem;border:none;border-radius:8px;background:var(--navy);
+    color:var(--yellow);font-weight:700;font-size:.85rem;text-align:center;transition:transform .15s, box-shadow .15s;}
+  .demo-btn.pulse{transform:scale(0.96);box-shadow:0 0 0 5px rgba(45,50,119,.25);}
+  .demo-output{flex:1;background:#fff;border:2px dashed #d8d8d8;border-radius:12px;padding:1.1rem 1.2rem;
+    min-height:300px;max-width:400px;}
+  .demo-output-label{font-size:.72rem;font-weight:700;color:var(--muted);margin-bottom:.5rem;
+    text-transform:uppercase;letter-spacing:1px;}
+  .demo-output-text{white-space:pre-wrap;font-family:'Courier New',monospace;font-size:.74rem;
+    color:#333;line-height:1.55;min-height:200px;}
+  .demo-output-text .cursor{display:inline-block;width:6px;background:var(--navy);margin-left:1px;
+    animation:blink 1s step-end infinite;}
+  @keyframes blink{50%{opacity:0;}}
+  .replay-btn{margin-top:1rem;align-self:flex-start;background:var(--navy);color:var(--yellow);
+    border:none;border-radius:6px;padding:.5rem 1.1rem;font-size:.82rem;cursor:pointer;}
+  .replay-btn:hover{background:var(--navy-dark);}
+  .is-hidden{display:none !important;}
+  .demo-sheets-btn{margin-top:.8rem;background:#28a745;color:#fff;}
+  .demo-sheets-btn.pulse{box-shadow:0 0 0 5px rgba(40,167,69,.3);}
+  .demo-status{margin-top:.7rem;padding:.55rem .7rem;border-radius:6px;font-size:.76rem;
+    background:#d4edda;color:#155724;border:1px solid #c3e6cb;}
+  .demo-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:3000;
+    justify-content:center;align-items:center;}
+  .demo-modal-overlay.active{display:flex;}
+  .demo-modal{background:#fff;border-radius:14px;padding:1.5rem 1.7rem;max-width:400px;width:88%;
+    box-shadow:0 20px 60px rgba(0,0,0,.35);}
+  .demo-modal h3{margin:0 0 .9rem 0;font-size:1rem;color:#333;}
+  .demo-modal-data{background:var(--card);border-radius:8px;padding:.85rem .95rem;margin-bottom:1.1rem;
+    font-size:.76rem;color:#444;line-height:1.55;}
+  .demo-modal-data p{margin:0 0 .25em 0;}
+  .demo-modal-data strong{color:var(--navy);}
+  .demo-modal-buttons{display:flex;gap:.55rem;}
+  .demo-modal-confirm{flex:1;padding:.55rem;border:none;border-radius:8px;background:var(--navy);
+    color:var(--yellow);font-weight:700;font-size:.8rem;transition:box-shadow .15s;}
+  .demo-modal-confirm.pulse{box-shadow:0 0 0 5px rgba(45,50,119,.3);}
+  .demo-modal-cancel{flex:1;padding:.55rem;border:none;border-radius:8px;background:#e0e0e0;
+    color:#555;font-weight:700;font-size:.8rem;}
 </style>
 </head>
 <body>
@@ -81,6 +138,88 @@
       <div class="row"><div class="num">1</div><div><h3>Novo Cadastro</h3><p>Preenche dados do motorista, veículo, ANTT e tipo de frota. Ao gerar, cria um ID único (MOT-XXXXXXX), monta a mensagem padrão e permite copiar, enviar no WhatsApp ou salvar no Sheets.</p></div></div>
       <div class="row"><div class="num">2</div><div><h3>Atualizar Status</h3><p>Informa o ID do motorista e escolhe a etapa (Divergência, Cadastro, Onboarding, Liberado ou Encerrado). O sistema mostra só os status daquela etapa e gera a mensagem de atualização, que também pode ser salva no Sheets.</p></div></div>
     </div>
+  </section>
+
+  <section class="slide demo" data-demo="1">
+    <h2 class="title">Demonstração — Novo Cadastro</h2>
+    <p class="demo-note">Simulação com dados fictícios, só para ilustrar o preenchimento.</p>
+    <div class="demo-wrap">
+      <div class="demo-form">
+        <div class="demo-field" id="d1_f_assistente"><label>Nome do Assistente</label>
+          <select id="d1_assistente" disabled><option>Selecione...</option><option>Gabriel</option></select>
+        </div>
+        <div class="demo-field" id="d1_f_svcxd"><label>SVC/XD</label>
+          <input id="d1_svcxd" readonly placeholder="Digite para buscar...">
+          <div class="demo-suggest" id="d1_suggest">SSP1 - ARE</div>
+        </div>
+        <div class="demo-field" id="d1_f_motorista"><label>Motorista</label>
+          <input id="d1_motorista" readonly placeholder="Nome completo do motorista"></div>
+        <div class="demo-row2">
+          <div class="demo-field" id="d1_f_cpf"><label>CPF</label><input id="d1_cpf" readonly placeholder="000.000.000-00"></div>
+          <div class="demo-field" id="d1_f_tel"><label>Telefone</label><input id="d1_tel" readonly placeholder="5511999999999"></div>
+        </div>
+        <div class="demo-field" id="d1_f_placa"><label>Placa</label><input id="d1_placa" readonly placeholder="DGI-1E74"></div>
+        <div class="demo-field" id="d1_f_frota"><label>Tipo de Frota</label>
+          <div class="demo-cards">
+            <div class="demo-card" id="d1_card_fixa">🏢 Frota Fixa</div>
+            <div class="demo-card" id="d1_card_spot">⚡ Spot</div>
+            <div class="demo-card" id="d1_card_etc">🔗 ETC</div>
+          </div>
+        </div>
+        <div class="demo-field hidden" id="d1_f_demanda"><label>Demanda</label><input id="d1_demanda" readonly placeholder="Ex: FF_16707"></div>
+        <div class="demo-row2">
+          <div class="demo-field" id="d1_f_milha"><label>Milha</label>
+            <select id="d1_milha" disabled><option>Selecione...</option><option>First Mile</option><option>Last Mile</option><option>Full</option></select>
+          </div>
+          <div class="demo-field" id="d1_f_status"><label>Status</label>
+            <select id="d1_status" disabled><option>Selecione...</option><option>Enviado para cadastro</option></select>
+          </div>
+        </div>
+        <div class="demo-field"><div class="demo-btn" id="d1_btn">✨ Gerar Mensagem</div></div>
+      </div>
+      <div class="demo-output">
+        <div class="demo-output-label">Mensagem gerada</div>
+        <pre class="demo-output-text" id="d1_output"></pre>
+        <div class="demo-btn demo-sheets-btn is-hidden" id="d1_sheetsBtn">📊 Salvar no Sheets</div>
+        <div class="demo-status is-hidden" id="d1_status_msg">✅ Dados salvos na planilha com sucesso!</div>
+      </div>
+    </div>
+    <button class="replay-btn" data-replay="1">🔁 Reproduzir novamente</button>
+  </section>
+
+  <section class="slide demo" data-demo="2">
+    <h2 class="title">Demonstração — Atualizar Status</h2>
+    <p class="demo-note">Simulação com dados fictícios, só para ilustrar o preenchimento.</p>
+    <div class="demo-wrap">
+      <div class="demo-form">
+        <div class="demo-field" id="d2_f_assistente"><label>Nome do Assistente</label>
+          <select id="d2_assistente" disabled><option>Selecione...</option><option>Gabriel</option></select>
+        </div>
+        <div class="demo-field" id="d2_f_motid"><label>ID do Motorista</label>
+          <input id="d2_motid" readonly placeholder="MOT-9737000"></div>
+        <div class="demo-field" id="d2_f_etapa"><label>Etapa</label>
+          <div class="demo-cards">
+            <div class="demo-card" id="d2_card_cadastro">📋 Cadastro</div>
+            <div class="demo-card" id="d2_card_onboarding">🎓 Onboarding</div>
+            <div class="demo-card" id="d2_card_liberado">✅ Liberado</div>
+            <div class="demo-card" id="d2_card_encerrado">🚫 Encerrado</div>
+          </div>
+        </div>
+        <div class="demo-field" id="d2_f_status"><label>Status</label>
+          <select id="d2_status" disabled><option>Selecione...</option><option>Data de Disponibilidade</option><option>Declínio Operação</option></select>
+        </div>
+        <div class="demo-field hidden" id="d2_f_data"><label>Data de Disponibilidade</label>
+          <input id="d2_data" readonly placeholder="dd/mm/aaaa"></div>
+        <div class="demo-field"><div class="demo-btn" id="d2_btn">🔄 Registrar Atualização</div></div>
+      </div>
+      <div class="demo-output">
+        <div class="demo-output-label">Atualização gerada</div>
+        <pre class="demo-output-text" id="d2_output"></pre>
+        <div class="demo-btn demo-sheets-btn is-hidden" id="d2_sheetsBtn">📊 Salvar no Sheets</div>
+        <div class="demo-status is-hidden" id="d2_status_msg">✅ Atualização salva na planilha!</div>
+      </div>
+    </div>
+    <button class="replay-btn" data-replay="2">🔁 Reproduzir novamente</button>
   </section>
 
   <section class="slide">
@@ -130,6 +269,17 @@
 
 </div>
 
+<div class="demo-modal-overlay" id="demoModalOverlay">
+  <div class="demo-modal">
+    <h3>✅ Confirmar envio para o Sheets</h3>
+    <div class="demo-modal-data" id="demoModalData"></div>
+    <div class="demo-modal-buttons">
+      <div class="demo-modal-cancel">✏️ Corrigir</div>
+      <div class="demo-modal-confirm" id="demoModalConfirm">📊 Confirmar e Salvar</div>
+    </div>
+  </div>
+</div>
+
 <div class="nav">
   <button id="prev">◀ Anterior</button>
   <span class="count"><span id="cur">1</span> / <span id="tot">6</span></span>
@@ -145,12 +295,234 @@
     idx = (i+slides.length)%slides.length;
     slides[idx].classList.add('active');
     document.getElementById('cur').textContent = idx+1;
+    const demoAttr = slides[idx].getAttribute('data-demo');
+    cancelAllDemos();
+    if(demoAttr === '1') playDemo1();
+    if(demoAttr === '2') playDemo2();
   }
   document.getElementById('prev').onclick = ()=>show(idx-1);
   document.getElementById('next').onclick = ()=>show(idx+1);
   document.addEventListener('keydown', e=>{
     if(e.key==='ArrowRight'||e.key===' ') show(idx+1);
     if(e.key==='ArrowLeft') show(idx-1);
+  });
+
+  // ---------- Demo animation engine ----------
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  let tokens = { 1: { cancelled: true }, 2: { cancelled: true } };
+
+  function cancelAllDemos(){
+    tokens[1].cancelled = true;
+    tokens[2].cancelled = true;
+    hideModal();
+  }
+  function showModal(html){
+    document.getElementById('demoModalData').innerHTML = html;
+    document.getElementById('demoModalOverlay').classList.add('active');
+  }
+  function hideModal(){
+    document.getElementById('demoModalOverlay').classList.remove('active');
+  }
+
+  async function typeInto(el, text, token, speed = 42){
+    el.value = '';
+    for(const ch of text){
+      if(token.cancelled) return false;
+      el.value += ch;
+      await sleep(speed);
+    }
+    return true;
+  }
+  function setActive(fieldEl, on){ if(fieldEl) fieldEl.classList.toggle('active', on); }
+  function chooseCard(cardEl, allCards){
+    allCards.forEach(c => c.classList.remove('chosen'));
+    cardEl.classList.add('chosen');
+  }
+  async function pulseBtn(btnEl, token){
+    if(token.cancelled) return;
+    btnEl.classList.add('pulse');
+    await sleep(260);
+    btnEl.classList.remove('pulse');
+  }
+  async function typeOutput(el, text, token, speed = 10){
+    el.textContent = '';
+    for(const ch of text){
+      if(token.cancelled) return;
+      el.textContent += ch;
+      await sleep(speed);
+    }
+  }
+
+  async function playDemo1(){
+    const token = { cancelled: false };
+    tokens[1] = token;
+    const $ = id => document.getElementById(id);
+    // reset
+    ['d1_svcxd','d1_motorista','d1_cpf','d1_tel','d1_placa','d1_demanda'].forEach(id => $(id).value = '');
+    $('d1_assistente').selectedIndex = 0;
+    $('d1_milha').selectedIndex = 0;
+    $('d1_status').selectedIndex = 0;
+    $('d1_suggest').classList.remove('show');
+    document.getElementById('d1_f_demanda').classList.add('hidden');
+    [$('d1_card_fixa'), $('d1_card_spot'), $('d1_card_etc')].forEach(c => c.classList.remove('chosen'));
+    $('d1_output').textContent = '';
+    $('d1_sheetsBtn').classList.add('is-hidden');
+    $('d1_status_msg').classList.add('is-hidden');
+    await sleep(500);
+    if(token.cancelled) return;
+
+    setActive(document.getElementById('d1_f_assistente'), true);
+    await sleep(450); $('d1_assistente').value = 'Gabriel'; await sleep(350);
+    setActive(document.getElementById('d1_f_assistente'), false);
+
+    setActive(document.getElementById('d1_f_svcxd'), true);
+    if(!await typeInto($('d1_svcxd'), 'SSP1', token)) return;
+    $('d1_suggest').classList.add('show');
+    await sleep(600); if(token.cancelled) return;
+    $('d1_svcxd').value = 'SSP1 - ARE';
+    $('d1_suggest').classList.remove('show');
+    await sleep(300);
+    setActive(document.getElementById('d1_f_svcxd'), false);
+
+    setActive(document.getElementById('d1_f_motorista'), true);
+    if(!await typeInto($('d1_motorista'), 'JOAO DA SILVA SANTOS', token)) return;
+    await sleep(300); setActive(document.getElementById('d1_f_motorista'), false);
+
+    setActive(document.getElementById('d1_f_cpf'), true);
+    if(!await typeInto($('d1_cpf'), '123.456.789-09', token, 30)) return;
+    await sleep(300); setActive(document.getElementById('d1_f_cpf'), false);
+
+    setActive(document.getElementById('d1_f_tel'), true);
+    if(!await typeInto($('d1_tel'), '5511999998888', token, 30)) return;
+    await sleep(300); setActive(document.getElementById('d1_f_tel'), false);
+
+    setActive(document.getElementById('d1_f_placa'), true);
+    if(!await typeInto($('d1_placa'), 'ABC1D23', token, 60)) return;
+    await sleep(300); setActive(document.getElementById('d1_f_placa'), false);
+
+    setActive(document.getElementById('d1_f_frota'), true);
+    await sleep(350); if(token.cancelled) return;
+    chooseCard($('d1_card_fixa'), [$('d1_card_fixa'), $('d1_card_spot'), $('d1_card_etc')]);
+    document.getElementById('d1_f_demanda').classList.remove('hidden');
+    await sleep(350);
+    setActive(document.getElementById('d1_f_frota'), false);
+
+    setActive(document.getElementById('d1_f_demanda'), true);
+    if(!await typeInto($('d1_demanda'), 'FF_16707', token, 55)) return;
+    await sleep(300); setActive(document.getElementById('d1_f_demanda'), false);
+
+    setActive(document.getElementById('d1_f_milha'), true);
+    await sleep(400); if(token.cancelled) return;
+    $('d1_milha').value = 'First Mile'; await sleep(300);
+    setActive(document.getElementById('d1_f_milha'), false);
+
+    setActive(document.getElementById('d1_f_status'), true);
+    await sleep(400); if(token.cancelled) return;
+    $('d1_status').value = 'Enviado para cadastro'; await sleep(300);
+    setActive(document.getElementById('d1_f_status'), false);
+
+    await pulseBtn($('d1_btn'), token);
+    if(token.cancelled) return;
+    const msg = 'CONTRATAÇÃO: SSP1 - ARE\n'
+      + '• Motorista: JOAO DA SILVA SANTOS\n'
+      + '• CPF: 123.456.789-09\n'
+      + '• Tel: 5511999998888\n'
+      + '• Placa: ABC1D23\n'
+      + '• Demanda: FF_16707\n'
+      + '• Frota: Frota Fixa\n'
+      + '• Milha: First Mile\n'
+      + '• Status: Enviado para cadastro\n\n'
+      + '🆔 ID Motorista: MOT-1234567';
+    await typeOutput($('d1_output'), msg, token);
+    if(token.cancelled) return;
+
+    $('d1_sheetsBtn').classList.remove('is-hidden');
+    await sleep(600); if(token.cancelled) return;
+    await pulseBtn($('d1_sheetsBtn'), token);
+    if(token.cancelled) return;
+
+    showModal(
+      '<p><strong>ID Motorista:</strong> MOT-1234567</p>' +
+      '<p><strong>Assistente:</strong> Gabriel</p>' +
+      '<p><strong>Nome:</strong> JOAO DA SILVA SANTOS</p>' +
+      '<p><strong>CPF:</strong> 123.456.789-09</p>' +
+      '<p><strong>Demanda:</strong> FF_16707</p>' +
+      '<p><strong>Placa:</strong> ABC1D23</p>' +
+      '<p><strong>Frota:</strong> Frota Fixa | Milha: First Mile</p>' +
+      '<p><strong>Status:</strong> Enviado para cadastro</p>'
+    );
+    await sleep(1700);
+    if(token.cancelled){ hideModal(); return; }
+    await pulseBtn($('demoModalConfirm'), token);
+    if(token.cancelled){ hideModal(); return; }
+    hideModal();
+    $('d1_status_msg').classList.remove('is-hidden');
+  }
+
+  async function playDemo2(){
+    const token = { cancelled: false };
+    tokens[2] = token;
+    const $ = id => document.getElementById(id);
+    ['d2_motid','d2_data'].forEach(id => $(id).value = '');
+    $('d2_assistente').selectedIndex = 0;
+    $('d2_status').selectedIndex = 0;
+    document.getElementById('d2_f_data').classList.add('hidden');
+    [$('d2_card_cadastro'), $('d2_card_onboarding'), $('d2_card_liberado'), $('d2_card_encerrado')].forEach(c => c.classList.remove('chosen'));
+    $('d2_output').textContent = '';
+    $('d2_sheetsBtn').classList.add('is-hidden');
+    $('d2_status_msg').classList.add('is-hidden');
+    await sleep(500);
+    if(token.cancelled) return;
+
+    setActive(document.getElementById('d2_f_assistente'), true);
+    await sleep(450); $('d2_assistente').value = 'Gabriel'; await sleep(350);
+    setActive(document.getElementById('d2_f_assistente'), false);
+
+    setActive(document.getElementById('d2_f_motid'), true);
+    if(!await typeInto($('d2_motid'), 'MOT-1234567', token, 45)) return;
+    await sleep(300); setActive(document.getElementById('d2_f_motid'), false);
+
+    setActive(document.getElementById('d2_f_etapa'), true);
+    await sleep(350); if(token.cancelled) return;
+    chooseCard($('d2_card_liberado'), [$('d2_card_cadastro'), $('d2_card_onboarding'), $('d2_card_liberado'), $('d2_card_encerrado')]);
+    await sleep(350);
+    setActive(document.getElementById('d2_f_etapa'), false);
+
+    setActive(document.getElementById('d2_f_status'), true);
+    await sleep(400); if(token.cancelled) return;
+    $('d2_status').value = 'Data de Disponibilidade';
+    document.getElementById('d2_f_data').classList.remove('hidden');
+    await sleep(300);
+    setActive(document.getElementById('d2_f_status'), false);
+
+    setActive(document.getElementById('d2_f_data'), true);
+    if(!await typeInto($('d2_data'), '20/09/2026', token, 55)) return;
+    await sleep(300); setActive(document.getElementById('d2_f_data'), false);
+
+    await pulseBtn($('d2_btn'), token);
+    if(token.cancelled) return;
+    const msg = 'ATUALIZAÇÃO DE STATUS\n'
+      + '• ID Motorista: MOT-1234567\n'
+      + '• Status: Liberado: Data de Disponibilidade\n'
+      + '• Data de Disponibilidade: 20/09/2026\n'
+      + '• Assistente: Gabriel';
+    await typeOutput($('d2_output'), msg, token);
+    if(token.cancelled) return;
+
+    $('d2_sheetsBtn').classList.remove('is-hidden');
+    await sleep(600); if(token.cancelled) return;
+    await pulseBtn($('d2_sheetsBtn'), token);
+    if(token.cancelled) return;
+    $('d2_status_msg').classList.remove('is-hidden');
+  }
+
+  document.querySelectorAll('.replay-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const n = btn.getAttribute('data-replay');
+      cancelAllDemos();
+      if(n === '1') playDemo1();
+      if(n === '2') playDemo2();
+    });
   });
 </script>
 </body>
